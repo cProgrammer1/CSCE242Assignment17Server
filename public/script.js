@@ -27,11 +27,9 @@ const getCrafts = async() =>
 
 };
 
+
 const showCrafts = async() =>
 {
-    // FOR TESTING: console.log("Testing");
-    // console.log(craftsJSON);
-
     craftsJSON = await getCrafts();
 
     const craftsDiv = document.getElementById("crafts");
@@ -60,30 +58,33 @@ const showCrafts = async() =>
 
     }
 
+    // FOR TESTING: console.log(craft);
+
+    const craftSection0 = document.querySelector(".craft-section0");
+    craftSection0.classList.add("craft-section0");
+    // FOR TESTING: console.log(craftSection0);
+
+    const craftSection1 = document.querySelector(".craft-section1");
+    craftSection1.classList.add("craft-section1");
+
+    const craftSection2 = document.querySelector(".craft-section2");
+    craftSection2.classList.add("craft-section2");
+
+    const craftSection3 = document.querySelector(".craft-section3");
+    craftSection3.classList.add("craft-section3");
+
 
     craftsJSON.forEach((craft) => 
     {
-        // FOR TESTING: console.log(craft);
 
-        const craftSection0 = document.querySelector(".craft-section0");
-        craftSection0.classList.add("craft-section0");
-        // FOR TESTING: console.log(craftSection0);
-
-        const craftSection1 = document.querySelector(".craft-section1");
-        craftSection1.classList.add("craft-section1");
-
-        const craftSection2 = document.querySelector(".craft-section2");
-        craftSection2.classList.add("craft-section2");
-
-        const craftSection3 = document.querySelector(".craft-section3");
-        craftSection3.classList.add("craft-section3");
-
-
-        // Places crafts in the first section 
-        if((craft.id == "0"))
+        // If craft ID has a remainder of 0 when divided by 4, places the craft in the section section (craftSection0) 
+        if(craft._id % 4 == 0)
         {
             const craftImage = document.createElement("img");
             craftImage.src = "crafts/" + craft.image;
+            craftImage.classList.add("initial-image-preview");
+
+            // Appends to craftSection0 
             craftSection0.append(craftImage);
 
             craftImage.onclick = (event) =>
@@ -96,7 +97,7 @@ const showCrafts = async() =>
 
                 const expandedInfoSection = document.getElementById("expanded-info-section");
                 expandedInfoSection.innerHTML = "";
-    
+
                 const expandedCraftNameh3 = document.createElement("h2");
                 expandedCraftNameh3.classList.add("inline");
                 expandedCraftNameh3.innerHTML = craft.name;
@@ -137,650 +138,33 @@ const showCrafts = async() =>
                 expandedImage.classList.add("expanded-craft-image");
                 expandedImage.src = "crafts/" + craft.image;
                 expandedImageSection.append(expandedImage);
-    
-            };
 
-        }
-        if((craft.id == "4"))
-        {
-            const craftImage = document.createElement("img");
-            craftImage.src = "crafts/" + craft.image;
-            craftSection0.append(craftImage);
-
-            craftImage.onclick = (event) =>
-            {
-                // FOR TESTING: console.log("Clicked");
-    
-                // document.getElementById("crafts-modal").style.display = "block";
-                openCraftsModal("expanded-image-section");
-                openCraftsModal("expanded-info-section");
-
-                const expandedInfoSection = document.getElementById("expanded-info-section");
-                expandedInfoSection.innerHTML = "";
-    
-                const expandedCraftNameh3 = document.createElement("h2");
-                expandedCraftNameh3.classList.add("inline");
-                expandedCraftNameh3.innerHTML = craft.name;
-                expandedInfoSection.append(expandedCraftNameh3);
-
-                const pencilImage = document.createElement("img")
-                pencilImage.classList.add("edit-pencil-image");
-                pencilImage.src = "images/edit_pencil_image.png";
-                expandedInfoSection.append(pencilImage);
-
-                const expandedCraftDescriptionP = document.createElement("p");
-                expandedCraftDescriptionP.innerHTML = craft.description;
-                expandedInfoSection.append(expandedCraftDescriptionP);
-
-                const expandedCraftSuppliesTitle = document.createElement("h3")
-                expandedCraftSuppliesTitle.innerHTML = "Supplies:"
-                expandedInfoSection.append(expandedCraftSuppliesTitle);
-
-                const expandedCraftSuppliesUl = document.createElement("ul");
-                
-                for(let i=0; i<craft.supplies.length; i++)
-                {
-                    const expandedCraftSuppliesP = document.createElement("li");
-
-                    expandedCraftSuppliesP.append(craft.supplies[i]);
-                    
-                    expandedCraftSuppliesUl.append(expandedCraftSuppliesP);
-                    
-                };
-                
-                expandedInfoSection.append(expandedCraftSuppliesUl);
-
-
-                const expandedImageSection = document.getElementById("expanded-image-section");
-                expandedImageSection.innerHTML = "";
-
-                const expandedImage = document.createElement("img");
-                expandedImage.classList.add("expanded-craft-image");
-                expandedImage.src = "crafts/" + craft.image;
-                expandedImageSection.append(expandedImage);
-    
-            };
-
-        }
-        if((craft.id == "8"))
-        {
-            const craftImage = document.createElement("img");
-            craftImage.src = "crafts/" + craft.image;
-            craftSection0.append(craftImage);
-
-            craftImage.onclick = (event) =>
-            {
-                // FOR TESTING: console.log("Clicked");
-    
-                // document.getElementById("crafts-modal").style.display = "block";
-                openCraftsModal("expanded-image-section");
-                openCraftsModal("expanded-info-section");
-            
-
-                const expandedInfoSection = document.getElementById("expanded-info-section");
-                expandedInfoSection.innerHTML = "";
-    
-                const expandedCraftNameh3 = document.createElement("h2");
-                expandedCraftNameh3.classList.add("inline");
-                expandedCraftNameh3.innerHTML = craft.name;
-                expandedInfoSection.append(expandedCraftNameh3);
-
-                const pencilImage = document.createElement("img")
-                pencilImage.classList.add("edit-pencil-image");
-                pencilImage.src = "images/edit_pencil_image.png";
-                expandedInfoSection.append(pencilImage);
-
-                const expandedCraftDescriptionP = document.createElement("p");
-                expandedCraftDescriptionP.innerHTML = craft.description;
-                expandedInfoSection.append(expandedCraftDescriptionP);
-
-                const expandedCraftSuppliesTitle = document.createElement("h3")
-                expandedCraftSuppliesTitle.innerHTML = "Supplies:"
-                expandedInfoSection.append(expandedCraftSuppliesTitle);
-
-                const expandedCraftSuppliesUl = document.createElement("ul");
-                
-                for(let i=0; i<craft.supplies.length; i++)
-                {
-                    const expandedCraftSuppliesP = document.createElement("li");
-
-                    expandedCraftSuppliesP.append(craft.supplies[i]);
-                    
-                    expandedCraftSuppliesUl.append(expandedCraftSuppliesP);
-                    
-                };
-                
-                expandedInfoSection.append(expandedCraftSuppliesUl);
-
-
-                const expandedImageSection = document.getElementById("expanded-image-section");
-                expandedImageSection.innerHTML = "";
-
-                const expandedImage = document.createElement("img");
-                expandedImage.classList.add("expanded-craft-image");
-                expandedImage.src = "crafts/" + craft.image;
-                expandedImageSection.append(expandedImage);
-    
-            };
-
-        }
-        if((craft.id == "12"))
-        {
-            const craftImage = document.createElement("img");
-            craftImage.src = "crafts/" + craft.image;
-            craftSection0.append(craftImage);
-
-            craftImage.onclick = (event) =>
-            {
-                // FOR TESTING: console.log("Clicked");
-    
-                // document.getElementById("crafts-modal").style.display = "block";
-                openCraftsModal("expanded-image-section");
-                openCraftsModal("expanded-info-section");
-            
-
-                const expandedInfoSection = document.getElementById("expanded-info-section");
-                expandedInfoSection.innerHTML = "";
-    
-                const expandedCraftNameh3 = document.createElement("h2");
-                expandedCraftNameh3.classList.add("inline");
-                expandedCraftNameh3.innerHTML = craft.name;
-                expandedInfoSection.append(expandedCraftNameh3);
-
-                const pencilImage = document.createElement("img")
-                pencilImage.classList.add("edit-pencil-image");
-                pencilImage.src = "images/edit_pencil_image.png";
-                expandedInfoSection.append(pencilImage);
-
-                const expandedCraftDescriptionP = document.createElement("p");
-                expandedCraftDescriptionP.innerHTML = craft.description;
-                expandedInfoSection.append(expandedCraftDescriptionP);
-
-                const expandedCraftSuppliesTitle = document.createElement("h3")
-                expandedCraftSuppliesTitle.innerHTML = "Supplies:"
-                expandedInfoSection.append(expandedCraftSuppliesTitle);
-
-                const expandedCraftSuppliesUl = document.createElement("ul");
-                
-                for(let i=0; i<craft.supplies.length; i++)
-                {
-                    const expandedCraftSuppliesP = document.createElement("li");
-
-                    expandedCraftSuppliesP.append(craft.supplies[i]);
-                    
-                    expandedCraftSuppliesUl.append(expandedCraftSuppliesP);
-                    
-                };
-                
-                expandedInfoSection.append(expandedCraftSuppliesUl);
-
-
-                const expandedImageSection = document.getElementById("expanded-image-section");
-                expandedImageSection.innerHTML = "";
-
-                const expandedImage = document.createElement("img");
-                expandedImage.classList.add("expanded-craft-image");
-                expandedImage.src = "crafts/" + craft.image;
-                expandedImageSection.append(expandedImage);
-    
-            };
-
-        }
-        if((craft.id == "16"))
-        {
-            const craftImage = document.createElement("img");
-            craftImage.src = "crafts/" + craft.image;
-            craftSection0.append(craftImage);
-
-            craftImage.onclick = (event) =>
-            {
-                // FOR TESTING: console.log("Clicked");
-    
-                // document.getElementById("crafts-modal").style.display = "block";
-                openCraftsModal("expanded-image-section");
-                openCraftsModal("expanded-info-section");
-            
-
-                const expandedInfoSection = document.getElementById("expanded-info-section");
-                expandedInfoSection.innerHTML = "";
-    
-                const expandedCraftNameh3 = document.createElement("h2");
-                expandedCraftNameh3.classList.add("inline");
-                expandedCraftNameh3.innerHTML = craft.name;
-                expandedInfoSection.append(expandedCraftNameh3);
-
-                const pencilImage = document.createElement("img")
-                pencilImage.classList.add("edit-pencil-image");
-                pencilImage.src = "images/edit_pencil_image.png";
-                expandedInfoSection.append(pencilImage);
-
-                const expandedCraftDescriptionP = document.createElement("p");
-                expandedCraftDescriptionP.innerHTML = craft.description;
-                expandedInfoSection.append(expandedCraftDescriptionP);
-
-                const expandedCraftSuppliesTitle = document.createElement("h3")
-                expandedCraftSuppliesTitle.innerHTML = "Supplies:"
-                expandedInfoSection.append(expandedCraftSuppliesTitle);
-
-                const expandedCraftSuppliesUl = document.createElement("ul");
-                
-                for(let i=0; i<craft.supplies.length; i++)
-                {
-                    const expandedCraftSuppliesP = document.createElement("li");
-
-                    expandedCraftSuppliesP.append(craft.supplies[i]);
-                    
-                    expandedCraftSuppliesUl.append(expandedCraftSuppliesP);
-                    
-                };
-                
-                expandedInfoSection.append(expandedCraftSuppliesUl);
-
-
-                const expandedImageSection = document.getElementById("expanded-image-section");
-                expandedImageSection.innerHTML = "";
-
-                const expandedImage = document.createElement("img");
-                expandedImage.classList.add("expanded-craft-image");
-                expandedImage.src = "crafts/" + craft.image;
-                expandedImageSection.append(expandedImage);
-    
-            };
-
-        }
-        if((craft.id == "20"))
-        {
-            const craftImage = document.createElement("img");
-            craftImage.src = "crafts/" + craft.image;
-            craftSection0.append(craftImage);
-
-            craftImage.onclick = (event) =>
-            {
-                // FOR TESTING: console.log("Clicked");
-    
-                // document.getElementById("crafts-modal").style.display = "block";
-                openCraftsModal("expanded-image-section");
-                openCraftsModal("expanded-info-section");
-            
-
-                const expandedInfoSection = document.getElementById("expanded-info-section");
-                expandedInfoSection.innerHTML = "";
-    
-                const expandedCraftNameh3 = document.createElement("h2");
-                expandedCraftNameh3.classList.add("inline");
-                expandedCraftNameh3.innerHTML = craft.name;
-                expandedInfoSection.append(expandedCraftNameh3);
-
-                const pencilImage = document.createElement("img")
-                pencilImage.classList.add("edit-pencil-image");
-                pencilImage.src = "images/edit_pencil_image.png";
-                expandedInfoSection.append(pencilImage);
-
-                const expandedCraftDescriptionP = document.createElement("p");
-                expandedCraftDescriptionP.innerHTML = craft.description;
-                expandedInfoSection.append(expandedCraftDescriptionP);
-
-                const expandedCraftSuppliesTitle = document.createElement("h3")
-                expandedCraftSuppliesTitle.innerHTML = "Supplies:"
-                expandedInfoSection.append(expandedCraftSuppliesTitle);
-
-                const expandedCraftSuppliesUl = document.createElement("ul");
-                
-                for(let i=0; i<craft.supplies.length; i++)
-                {
-                    const expandedCraftSuppliesP = document.createElement("li");
-
-                    expandedCraftSuppliesP.append(craft.supplies[i]);
-                    
-                    expandedCraftSuppliesUl.append(expandedCraftSuppliesP);
-                    
-                };
-                
-                expandedInfoSection.append(expandedCraftSuppliesUl);
-
-
-                const expandedImageSection = document.getElementById("expanded-image-section");
-                expandedImageSection.innerHTML = "";
-
-                const expandedImage = document.createElement("img");
-                expandedImage.classList.add("expanded-craft-image");
-                expandedImage.src = "crafts/" + craft.image;
-                expandedImageSection.append(expandedImage);
-    
-            };
-
-        }
-        if((craft.id == "24"))
-        {
-            const craftImage = document.createElement("img");
-            craftImage.src = "crafts/" + craft.image;
-            craftSection0.append(craftImage);
-
-            craftImage.onclick = (event) =>
-            {
-                // FOR TESTING: console.log("Clicked");
-    
-                // document.getElementById("crafts-modal").style.display = "block";
-                openCraftsModal("expanded-image-section");
-                openCraftsModal("expanded-info-section");
-            
-
-                const expandedInfoSection = document.getElementById("expanded-info-section");
-                expandedInfoSection.innerHTML = "";
-    
-                const expandedCraftNameh3 = document.createElement("h2");
-                expandedCraftNameh3.classList.add("inline");
-                expandedCraftNameh3.innerHTML = craft.name;
-                expandedInfoSection.append(expandedCraftNameh3);
-
-                const pencilImage = document.createElement("img")
-                pencilImage.classList.add("edit-pencil-image");
-                pencilImage.src = "images/edit_pencil_image.png";
-                expandedInfoSection.append(pencilImage);
-
-                const expandedCraftDescriptionP = document.createElement("p");
-                expandedCraftDescriptionP.innerHTML = craft.description;
-                expandedInfoSection.append(expandedCraftDescriptionP);
-
-                const expandedCraftSuppliesTitle = document.createElement("h3")
-                expandedCraftSuppliesTitle.innerHTML = "Supplies:"
-                expandedInfoSection.append(expandedCraftSuppliesTitle);
-
-                const expandedCraftSuppliesUl = document.createElement("ul");
-                
-                for(let i=0; i<craft.supplies.length; i++)
-                {
-                    const expandedCraftSuppliesP = document.createElement("li");
-
-                    expandedCraftSuppliesP.append(craft.supplies[i]);
-                    
-                    expandedCraftSuppliesUl.append(expandedCraftSuppliesP);
-                    
-                };
-                
-                expandedInfoSection.append(expandedCraftSuppliesUl);
-
-
-                const expandedImageSection = document.getElementById("expanded-image-section");
-                expandedImageSection.innerHTML = "";
-
-                const expandedImage = document.createElement("img");
-                expandedImage.classList.add("expanded-craft-image");
-                expandedImage.src = "crafts/" + craft.image;
-                expandedImageSection.append(expandedImage);
-    
             };
 
         }
 
 
-        // Places crafts the second section 
-        if((craft.id == "1"))
+        // If craft ID has a remainder of 1 when divided by 4, places the craft in the section section (craftSection1) 
+        if(craft._id % 4 == 1)
         {
             const craftImage = document.createElement("img");
             craftImage.src = "crafts/" + craft.image;
+            craftImage.classList.add("initial-image-preview");
+
+            // Appends to craftSection1 
             craftSection1.append(craftImage);
 
             craftImage.onclick = (event) =>
             {
                 // FOR TESTING: console.log("Clicked");
-    
-                // document.getElementById("crafts-modal").style.display = "block";
-                openCraftsModal("expanded-image-section");
-                openCraftsModal("expanded-info-section");
-            
 
-                const expandedInfoSection = document.getElementById("expanded-info-section");
-                expandedInfoSection.innerHTML = "";
-    
-                const expandedCraftNameh3 = document.createElement("h2");
-                expandedCraftNameh3.classList.add("inline");
-                expandedCraftNameh3.innerHTML = craft.name;
-                expandedInfoSection.append(expandedCraftNameh3);
-
-                const pencilImage = document.createElement("img")
-                pencilImage.classList.add("edit-pencil-image");
-                pencilImage.src = "images/edit_pencil_image.png";
-                expandedInfoSection.append(pencilImage);
-
-                const expandedCraftDescriptionP = document.createElement("p");
-                expandedCraftDescriptionP.innerHTML = craft.description;
-                expandedInfoSection.append(expandedCraftDescriptionP);
-
-                const expandedCraftSuppliesTitle = document.createElement("h3")
-                expandedCraftSuppliesTitle.innerHTML = "Supplies:"
-                expandedInfoSection.append(expandedCraftSuppliesTitle);
-
-                const expandedCraftSuppliesUl = document.createElement("ul");
-                
-                for(let i=0; i<craft.supplies.length; i++)
-                {
-                    const expandedCraftSuppliesP = document.createElement("li");
-
-                    expandedCraftSuppliesP.append(craft.supplies[i]);
-                    
-                    expandedCraftSuppliesUl.append(expandedCraftSuppliesP);
-                    
-                };
-                
-                expandedInfoSection.append(expandedCraftSuppliesUl);
-
-
-                const expandedImageSection = document.getElementById("expanded-image-section");
-                expandedImageSection.innerHTML = "";
-
-                const expandedImage = document.createElement("img");
-                expandedImage.classList.add("expanded-craft-image");
-                expandedImage.src = "crafts/" + craft.image;
-                expandedImageSection.append(expandedImage);
-    
-            };
-
-        }
-        if((craft.id == "5"))
-        {
-            const craftImage = document.createElement("img");
-            craftImage.src = "crafts/" + craft.image;
-            craftSection1.append(craftImage);
-
-            craftImage.onclick = (event) =>
-            {
-                // FOR TESTING: console.log("Clicked");
-    
-                // document.getElementById("crafts-modal").style.display = "block";
-                openCraftsModal("expanded-image-section");
-                openCraftsModal("expanded-info-section");
-            
-
-                const expandedInfoSection = document.getElementById("expanded-info-section");
-                expandedInfoSection.innerHTML = "";
-    
-                const expandedCraftNameh3 = document.createElement("h2");
-                expandedCraftNameh3.classList.add("inline");
-                expandedCraftNameh3.innerHTML = craft.name;
-                expandedInfoSection.append(expandedCraftNameh3);
-
-                const pencilImage = document.createElement("img")
-                pencilImage.classList.add("edit-pencil-image");
-                pencilImage.src = "images/edit_pencil_image.png";
-                expandedInfoSection.append(pencilImage);
-
-                const expandedCraftDescriptionP = document.createElement("p");
-                expandedCraftDescriptionP.innerHTML = craft.description;
-                expandedInfoSection.append(expandedCraftDescriptionP);
-
-                const expandedCraftSuppliesTitle = document.createElement("h3")
-                expandedCraftSuppliesTitle.innerHTML = "Supplies:"
-                expandedInfoSection.append(expandedCraftSuppliesTitle);
-
-                const expandedCraftSuppliesUl = document.createElement("ul");
-                
-                for(let i=0; i<craft.supplies.length; i++)
-                {
-                    const expandedCraftSuppliesP = document.createElement("li");
-
-                    expandedCraftSuppliesP.append(craft.supplies[i]);
-                    
-                    expandedCraftSuppliesUl.append(expandedCraftSuppliesP);
-                    
-                };
-                
-                expandedInfoSection.append(expandedCraftSuppliesUl);
-
-
-                const expandedImageSection = document.getElementById("expanded-image-section");
-                expandedImageSection.innerHTML = "";
-
-                const expandedImage = document.createElement("img");
-                expandedImage.classList.add("expanded-craft-image");
-                expandedImage.src = "crafts/" + craft.image;
-                expandedImageSection.append(expandedImage);
-    
-            };
-
-        }
-        if((craft.id == "9"))
-        {
-            const craftImage = document.createElement("img");
-            craftImage.src = "crafts/" + craft.image;
-            craftSection1.append(craftImage);
-
-            craftImage.onclick = (event) =>
-            {
-                // FOR TESTING: console.log("Clicked");
-    
-                // document.getElementById("crafts-modal").style.display = "block";
-                openCraftsModal("expanded-image-section");
-                openCraftsModal("expanded-info-section");
-            
-
-                const expandedInfoSection = document.getElementById("expanded-info-section");
-                expandedInfoSection.innerHTML = "";
-    
-                const expandedCraftNameh3 = document.createElement("h2");
-                expandedCraftNameh3.classList.add("inline");
-                expandedCraftNameh3.innerHTML = craft.name;
-                expandedInfoSection.append(expandedCraftNameh3);
-
-                const pencilImage = document.createElement("img")
-                pencilImage.classList.add("edit-pencil-image");
-                pencilImage.src = "images/edit_pencil_image.png";
-                expandedInfoSection.append(pencilImage);
-
-                const expandedCraftDescriptionP = document.createElement("p");
-                expandedCraftDescriptionP.innerHTML = craft.description;
-                expandedInfoSection.append(expandedCraftDescriptionP);
-
-                const expandedCraftSuppliesTitle = document.createElement("h3")
-                expandedCraftSuppliesTitle.innerHTML = "Supplies:"
-                expandedInfoSection.append(expandedCraftSuppliesTitle);
-
-                const expandedCraftSuppliesUl = document.createElement("ul");
-                
-                for(let i=0; i<craft.supplies.length; i++)
-                {
-                    const expandedCraftSuppliesP = document.createElement("li");
-
-                    expandedCraftSuppliesP.append(craft.supplies[i]);
-                    
-                    expandedCraftSuppliesUl.append(expandedCraftSuppliesP);
-                    
-                };
-                
-                expandedInfoSection.append(expandedCraftSuppliesUl);
-
-
-                const expandedImageSection = document.getElementById("expanded-image-section");
-                expandedImageSection.innerHTML = "";
-
-                const expandedImage = document.createElement("img");
-                expandedImage.classList.add("expanded-craft-image");
-                expandedImage.src = "crafts/" + craft.image;
-                expandedImageSection.append(expandedImage);
-    
-            };
-
-        }
-        if((craft.id == "13"))
-        {
-            const craftImage = document.createElement("img");
-            craftImage.src = "crafts/" + craft.image;
-            craftSection1.append(craftImage);
-
-            craftImage.onclick = (event) =>
-            {
-                // FOR TESTING: console.log("Clicked");
-    
-                // document.getElementById("crafts-modal").style.display = "block";
-                openCraftsModal("expanded-image-section");
-                openCraftsModal("expanded-info-section");
-            
-
-                const expandedInfoSection = document.getElementById("expanded-info-section");
-                expandedInfoSection.innerHTML = "";
-    
-                const expandedCraftNameh3 = document.createElement("h2");
-                expandedCraftNameh3.classList.add("inline");
-                expandedCraftNameh3.innerHTML = craft.name;
-                expandedInfoSection.append(expandedCraftNameh3);
-
-                const pencilImage = document.createElement("img")
-                pencilImage.classList.add("edit-pencil-image");
-                pencilImage.src = "images/edit_pencil_image.png";
-                expandedInfoSection.append(pencilImage);
-
-                const expandedCraftDescriptionP = document.createElement("p");
-                expandedCraftDescriptionP.innerHTML = craft.description;
-                expandedInfoSection.append(expandedCraftDescriptionP);
-
-                const expandedCraftSuppliesTitle = document.createElement("h3")
-                expandedCraftSuppliesTitle.innerHTML = "Supplies:"
-                expandedInfoSection.append(expandedCraftSuppliesTitle);
-
-                const expandedCraftSuppliesUl = document.createElement("ul");
-                
-                for(let i=0; i<craft.supplies.length; i++)
-                {
-                    const expandedCraftSuppliesP = document.createElement("li");
-
-                    expandedCraftSuppliesP.append(craft.supplies[i]);
-                    
-                    expandedCraftSuppliesUl.append(expandedCraftSuppliesP);
-                    
-                };
-                
-                expandedInfoSection.append(expandedCraftSuppliesUl);
-
-
-                const expandedImageSection = document.getElementById("expanded-image-section");
-                expandedImageSection.innerHTML = "";
-
-                const expandedImage = document.createElement("img");
-                expandedImage.classList.add("expanded-craft-image");
-                expandedImage.src = "crafts/" + craft.image;
-                expandedImageSection.append(expandedImage);
-    
-            };
-
-        }
-        if((craft.id == "17"))
-        {
-            const craftImage = document.createElement("img");
-            craftImage.src = "crafts/" + craft.image;
-            craftSection1.append(craftImage);
-
-            craftImage.onclick = (event) =>
-            {
-                // FOR TESTING: console.log("Clicked");
-    
                 // document.getElementById("crafts-modal").style.display = "block";
                 openCraftsModal("expanded-image-section");
                 openCraftsModal("expanded-info-section");
 
-
                 const expandedInfoSection = document.getElementById("expanded-info-section");
                 expandedInfoSection.innerHTML = "";
-    
+
                 const expandedCraftNameh3 = document.createElement("h2");
                 expandedCraftNameh3.classList.add("inline");
                 expandedCraftNameh3.innerHTML = craft.name;
@@ -821,93 +205,32 @@ const showCrafts = async() =>
                 expandedImage.classList.add("expanded-craft-image");
                 expandedImage.src = "crafts/" + craft.image;
                 expandedImageSection.append(expandedImage);
-    
-            };
 
-        }
-        if((craft.id == "21"))
-        {
-            const craftImage = document.createElement("img");
-            craftImage.src = "crafts/" + craft.image;
-            craftSection1.append(craftImage);
-
-            craftImage.onclick = (event) =>
-            {
-                // FOR TESTING: console.log("Clicked");
-    
-               // document.getElementById("crafts-modal").style.display = "block";
-                openCraftsModal("expanded-image-section");
-                openCraftsModal("expanded-info-section");
-            
-
-                const expandedInfoSection = document.getElementById("expanded-info-section");
-                expandedInfoSection.innerHTML = "";
-    
-                const expandedCraftNameh3 = document.createElement("h2");
-                expandedCraftNameh3.classList.add("inline");
-                expandedCraftNameh3.innerHTML = craft.name;
-                expandedInfoSection.append(expandedCraftNameh3);
-
-                const pencilImage = document.createElement("img")
-                pencilImage.classList.add("edit-pencil-image");
-                pencilImage.src = "images/edit_pencil_image.png";
-                expandedInfoSection.append(pencilImage);
-
-                const expandedCraftDescriptionP = document.createElement("p");
-                expandedCraftDescriptionP.innerHTML = craft.description;
-                expandedInfoSection.append(expandedCraftDescriptionP);
-
-                const expandedCraftSuppliesTitle = document.createElement("h3")
-                expandedCraftSuppliesTitle.innerHTML = "Supplies:"
-                expandedInfoSection.append(expandedCraftSuppliesTitle);
-
-                const expandedCraftSuppliesUl = document.createElement("ul");
-                
-                for(let i=0; i<craft.supplies.length; i++)
-                {
-                    const expandedCraftSuppliesP = document.createElement("li");
-
-                    expandedCraftSuppliesP.append(craft.supplies[i]);
-                    
-                    expandedCraftSuppliesUl.append(expandedCraftSuppliesP);
-                    
-                };
-                
-                expandedInfoSection.append(expandedCraftSuppliesUl);
-
-
-                const expandedImageSection = document.getElementById("expanded-image-section");
-                expandedImageSection.innerHTML = "";
-
-                const expandedImage = document.createElement("img");
-                expandedImage.classList.add("expanded-craft-image");
-                expandedImage.src = "crafts/" + craft.image;
-                expandedImageSection.append(expandedImage);
-    
             };
 
         }
 
-
-        // Places crafts the third section 
-        if((craft.id == "2"))
+        // If craft ID has a remainder of 2 when divided by 4, places the craft in the section section (craftSection2) 
+        if(craft._id % 4 == 2)
         {
             const craftImage = document.createElement("img");
             craftImage.src = "crafts/" + craft.image;
+            craftImage.classList.add("initial-image-preview");
+
+            // Appends to craftSection1 
             craftSection2.append(craftImage);
 
             craftImage.onclick = (event) =>
             {
                 // FOR TESTING: console.log("Clicked");
-    
+
                 // document.getElementById("crafts-modal").style.display = "block";
                 openCraftsModal("expanded-image-section");
                 openCraftsModal("expanded-info-section");
-            
 
                 const expandedInfoSection = document.getElementById("expanded-info-section");
                 expandedInfoSection.innerHTML = "";
-    
+
                 const expandedCraftNameh3 = document.createElement("h2");
                 expandedCraftNameh3.classList.add("inline");
                 expandedCraftNameh3.innerHTML = craft.name;
@@ -948,341 +271,32 @@ const showCrafts = async() =>
                 expandedImage.classList.add("expanded-craft-image");
                 expandedImage.src = "crafts/" + craft.image;
                 expandedImageSection.append(expandedImage);
-    
-            };
 
-        }
-        if((craft.id == "6"))
-        {
-            const craftImage = document.createElement("img");
-            craftImage.src = "crafts/" + craft.image;
-            craftSection2.append(craftImage);
-
-            craftImage.onclick = (event) =>
-            {
-                // FOR TESTING: console.log("Clicked");
-    
-                // document.getElementById("crafts-modal").style.display = "block";
-                openCraftsModal("expanded-image-section");
-                openCraftsModal("expanded-info-section");
-
-
-                const expandedInfoSection = document.getElementById("expanded-info-section");
-                expandedInfoSection.innerHTML = "";
-    
-                const expandedCraftNameh3 = document.createElement("h2");
-                expandedCraftNameh3.classList.add("inline");
-                expandedCraftNameh3.innerHTML = craft.name;
-                expandedInfoSection.append(expandedCraftNameh3);
-
-                const pencilImage = document.createElement("img")
-                pencilImage.classList.add("edit-pencil-image");
-                pencilImage.src = "images/edit_pencil_image.png";
-                expandedInfoSection.append(pencilImage);
-
-                const expandedCraftDescriptionP = document.createElement("p");
-                expandedCraftDescriptionP.innerHTML = craft.description;
-                expandedInfoSection.append(expandedCraftDescriptionP);
-
-                const expandedCraftSuppliesTitle = document.createElement("h3")
-                expandedCraftSuppliesTitle.innerHTML = "Supplies:"
-                expandedInfoSection.append(expandedCraftSuppliesTitle);
-
-                const expandedCraftSuppliesUl = document.createElement("ul");
-                
-                for(let i=0; i<craft.supplies.length; i++)
-                {
-                    const expandedCraftSuppliesP = document.createElement("li");
-
-                    expandedCraftSuppliesP.append(craft.supplies[i]);
-                    
-                    expandedCraftSuppliesUl.append(expandedCraftSuppliesP);
-                    
-                };
-                
-                expandedInfoSection.append(expandedCraftSuppliesUl);
-
-
-                const expandedImageSection = document.getElementById("expanded-image-section");
-                expandedImageSection.innerHTML = "";
-
-                const expandedImage = document.createElement("img");
-                expandedImage.classList.add("expanded-craft-image");
-                expandedImage.src = "crafts/" + craft.image;
-                expandedImageSection.append(expandedImage);
-    
-            };
-
-        }
-        if((craft.id == "10"))
-        {
-            const craftImage = document.createElement("img");
-            craftImage.src = "crafts/" + craft.image;
-            craftSection2.append(craftImage);
-
-            craftImage.onclick = (event) =>
-            {
-                // FOR TESTING: console.log("Clicked");
-    
-                // document.getElementById("crafts-modal").style.display = "block";
-                openCraftsModal("expanded-image-section");
-                openCraftsModal("expanded-info-section");
-            
-
-                const expandedInfoSection = document.getElementById("expanded-info-section");
-                expandedInfoSection.innerHTML = "";
-    
-                const expandedCraftNameh3 = document.createElement("h2");
-                expandedCraftNameh3.classList.add("inline");
-                expandedCraftNameh3.innerHTML = craft.name;
-                expandedInfoSection.append(expandedCraftNameh3);
-
-                const pencilImage = document.createElement("img")
-                pencilImage.classList.add("edit-pencil-image");
-                pencilImage.src = "images/edit_pencil_image.png";
-                expandedInfoSection.append(pencilImage);
-
-                const expandedCraftDescriptionP = document.createElement("p");
-                expandedCraftDescriptionP.innerHTML = craft.description;
-                expandedInfoSection.append(expandedCraftDescriptionP);
-
-                const expandedCraftSuppliesTitle = document.createElement("h3")
-                expandedCraftSuppliesTitle.innerHTML = "Supplies:"
-                expandedInfoSection.append(expandedCraftSuppliesTitle);
-
-                const expandedCraftSuppliesUl = document.createElement("ul");
-                
-                for(let i=0; i<craft.supplies.length; i++)
-                {
-                    const expandedCraftSuppliesP = document.createElement("li");
-
-                    expandedCraftSuppliesP.append(craft.supplies[i]);
-                    
-                    expandedCraftSuppliesUl.append(expandedCraftSuppliesP);
-                    
-                };
-                
-                expandedInfoSection.append(expandedCraftSuppliesUl);
-
-
-                const expandedImageSection = document.getElementById("expanded-image-section");
-                expandedImageSection.innerHTML = "";
-
-                const expandedImage = document.createElement("img");
-                expandedImage.classList.add("expanded-craft-image");
-                expandedImage.src = "crafts/" + craft.image;
-                expandedImageSection.append(expandedImage);
-    
-            };
-
-        }
-        if((craft.id == "14"))
-        {
-            const craftImage = document.createElement("img");
-            craftImage.src = "crafts/" + craft.image;
-            craftSection2.append(craftImage);
-
-            craftImage.onclick = (event) =>
-            {
-                // FOR TESTING: console.log("Clicked");
-    
-                // document.getElementById("crafts-modal").style.display = "block";
-                openCraftsModal("expanded-image-section");
-                openCraftsModal("expanded-info-section");
-            
-
-                const expandedInfoSection = document.getElementById("expanded-info-section");
-                expandedInfoSection.innerHTML = "";
-    
-                const expandedCraftNameh3 = document.createElement("h2");
-                expandedCraftNameh3.classList.add("inline");
-                expandedCraftNameh3.innerHTML = craft.name;
-                expandedInfoSection.append(expandedCraftNameh3);
-
-                const pencilImage = document.createElement("img")
-                pencilImage.classList.add("edit-pencil-image");
-                pencilImage.src = "images/edit_pencil_image.png";
-                expandedInfoSection.append(pencilImage);
-
-                const expandedCraftDescriptionP = document.createElement("p");
-                expandedCraftDescriptionP.innerHTML = craft.description;
-                expandedInfoSection.append(expandedCraftDescriptionP);
-
-                const expandedCraftSuppliesTitle = document.createElement("h3")
-                expandedCraftSuppliesTitle.innerHTML = "Supplies:"
-                expandedInfoSection.append(expandedCraftSuppliesTitle);
-
-                const expandedCraftSuppliesUl = document.createElement("ul");
-                
-                for(let i=0; i<craft.supplies.length; i++)
-                {
-                    const expandedCraftSuppliesP = document.createElement("li");
-
-                    expandedCraftSuppliesP.append(craft.supplies[i]);
-                    
-                    expandedCraftSuppliesUl.append(expandedCraftSuppliesP);
-                    
-                };
-                
-                expandedInfoSection.append(expandedCraftSuppliesUl);
-
-
-                const expandedImageSection = document.getElementById("expanded-image-section");
-                expandedImageSection.innerHTML = "";
-
-                const expandedImage = document.createElement("img");
-                expandedImage.classList.add("expanded-craft-image");
-                expandedImage.src = "crafts/" + craft.image;
-                expandedImageSection.append(expandedImage);
-    
-            };
-
-        }
-        if((craft.id == "18"))
-        {
-            const craftImage = document.createElement("img");
-            craftImage.src = "crafts/" + craft.image;
-            craftSection2.append(craftImage);
-
-            craftImage.onclick = (event) =>
-            {
-                // FOR TESTING: console.log("Clicked");
-    
-                // document.getElementById("crafts-modal").style.display = "block";
-                openCraftsModal("expanded-image-section");
-                openCraftsModal("expanded-info-section");
-            
-
-                const expandedInfoSection = document.getElementById("expanded-info-section");
-                expandedInfoSection.innerHTML = "";
-    
-                const expandedCraftNameh3 = document.createElement("h2");
-                expandedCraftNameh3.classList.add("inline");
-                expandedCraftNameh3.innerHTML = craft.name;
-                expandedInfoSection.append(expandedCraftNameh3);
-
-                const pencilImage = document.createElement("img")
-                pencilImage.classList.add("edit-pencil-image");
-                pencilImage.src = "images/edit_pencil_image.png";
-                expandedInfoSection.append(pencilImage);
-
-                const expandedCraftDescriptionP = document.createElement("p");
-                expandedCraftDescriptionP.innerHTML = craft.description;
-                expandedInfoSection.append(expandedCraftDescriptionP);
-
-                const expandedCraftSuppliesTitle = document.createElement("h3")
-                expandedCraftSuppliesTitle.innerHTML = "Supplies:"
-                expandedInfoSection.append(expandedCraftSuppliesTitle);
-
-                const expandedCraftSuppliesUl = document.createElement("ul");
-                
-                for(let i=0; i<craft.supplies.length; i++)
-                {
-                    const expandedCraftSuppliesP = document.createElement("li");
-
-                    expandedCraftSuppliesP.append(craft.supplies[i]);
-                    
-                    expandedCraftSuppliesUl.append(expandedCraftSuppliesP);
-                    
-                };
-                
-                expandedInfoSection.append(expandedCraftSuppliesUl);
-
-
-                const expandedImageSection = document.getElementById("expanded-image-section");
-                expandedImageSection.innerHTML = "";
-
-                const expandedImage = document.createElement("img");
-                expandedImage.classList.add("expanded-craft-image");
-                expandedImage.src = "crafts/" + craft.image;
-                expandedImageSection.append(expandedImage);
-    
-            };
-
-        }
-        if((craft.id == "22"))
-        {
-            const craftImage = document.createElement("img");
-            craftImage.src = "crafts/" + craft.image;
-            craftSection2.append(craftImage);
-
-            craftImage.onclick = (event) =>
-            {
-                // FOR TESTING: console.log("Clicked");
-    
-                // document.getElementById("crafts-modal").style.display = "block";
-                openCraftsModal("expanded-image-section");
-                openCraftsModal("expanded-info-section");
-            
-
-                const expandedInfoSection = document.getElementById("expanded-info-section");
-                expandedInfoSection.innerHTML = "";
-    
-                const expandedCraftNameh3 = document.createElement("h2");
-                expandedCraftNameh3.classList.add("inline");
-                expandedCraftNameh3.innerHTML = craft.name;
-                expandedInfoSection.append(expandedCraftNameh3);
-
-                const pencilImage = document.createElement("img")
-                pencilImage.classList.add("edit-pencil-image");
-                pencilImage.src = "images/edit_pencil_image.png";
-                expandedInfoSection.append(pencilImage);
-
-                const expandedCraftDescriptionP = document.createElement("p");
-                expandedCraftDescriptionP.innerHTML = craft.description;
-                expandedInfoSection.append(expandedCraftDescriptionP);
-
-                const expandedCraftSuppliesTitle = document.createElement("h3")
-                expandedCraftSuppliesTitle.innerHTML = "Supplies:"
-                expandedInfoSection.append(expandedCraftSuppliesTitle);
-
-                const expandedCraftSuppliesUl = document.createElement("ul");
-                
-                for(let i=0; i<craft.supplies.length; i++)
-                {
-                    const expandedCraftSuppliesP = document.createElement("li");
-
-                    expandedCraftSuppliesP.append(craft.supplies[i]);
-                    
-                    expandedCraftSuppliesUl.append(expandedCraftSuppliesP);
-                    
-                };
-                
-                expandedInfoSection.append(expandedCraftSuppliesUl);
-
-
-                const expandedImageSection = document.getElementById("expanded-image-section");
-                expandedImageSection.innerHTML = "";
-
-                const expandedImage = document.createElement("img");
-                expandedImage.classList.add("expanded-craft-image");
-                expandedImage.src = "crafts/" + craft.image;
-                expandedImageSection.append(expandedImage);
-    
             };
 
         }
 
-
-        // Places crafts the fourth section 
-        if((craft.id == "3"))
+        // If craft ID has a remainder of 3 when divided by 4, places the craft in the section section (craftSection3) 
+        if(craft._id % 4 == 3)
         {
             const craftImage = document.createElement("img");
             craftImage.src = "crafts/" + craft.image;
+            craftImage.classList.add("initial-image-preview");
+
+            // Appends to craftSection2
             craftSection3.append(craftImage);
 
             craftImage.onclick = (event) =>
             {
                 // FOR TESTING: console.log("Clicked");
-    
+
                 // document.getElementById("crafts-modal").style.display = "block";
                 openCraftsModal("expanded-image-section");
                 openCraftsModal("expanded-info-section");
-            
 
                 const expandedInfoSection = document.getElementById("expanded-info-section");
                 expandedInfoSection.innerHTML = "";
-    
+
                 const expandedCraftNameh3 = document.createElement("h2");
                 expandedCraftNameh3.classList.add("inline");
                 expandedCraftNameh3.innerHTML = craft.name;
@@ -1323,321 +337,10 @@ const showCrafts = async() =>
                 expandedImage.classList.add("expanded-craft-image");
                 expandedImage.src = "crafts/" + craft.image;
                 expandedImageSection.append(expandedImage);
-    
+
             };
 
         }
-        if((craft.id == "7"))
-        {
-            const craftImage = document.createElement("img");
-            craftImage.src = "crafts/" + craft.image;
-            craftSection3.append(craftImage);
-
-            craftImage.onclick = (event) =>
-            {
-                // FOR TESTING: console.log("Clicked");
-    
-                // document.getElementById("crafts-modal").style.display = "block";
-                openCraftsModal("expanded-image-section");
-                openCraftsModal("expanded-info-section");
-            
-
-                const expandedInfoSection = document.getElementById("expanded-info-section");
-                expandedInfoSection.innerHTML = "";
-    
-                const expandedCraftNameh3 = document.createElement("h2");
-                expandedCraftNameh3.classList.add("inline");
-                expandedCraftNameh3.innerHTML = craft.name;
-                expandedInfoSection.append(expandedCraftNameh3);
-
-                const pencilImage = document.createElement("img")
-                pencilImage.classList.add("edit-pencil-image");
-                pencilImage.src = "images/edit_pencil_image.png";
-                expandedInfoSection.append(pencilImage);
-
-                const expandedCraftDescriptionP = document.createElement("p");
-                expandedCraftDescriptionP.innerHTML = craft.description;
-                expandedInfoSection.append(expandedCraftDescriptionP);
-
-                const expandedCraftSuppliesTitle = document.createElement("h3")
-                expandedCraftSuppliesTitle.innerHTML = "Supplies:"
-                expandedInfoSection.append(expandedCraftSuppliesTitle);
-
-                const expandedCraftSuppliesUl = document.createElement("ul");
-                
-                for(let i=0; i<craft.supplies.length; i++)
-                {
-                    const expandedCraftSuppliesP = document.createElement("li");
-
-                    expandedCraftSuppliesP.append(craft.supplies[i]);
-                    
-                    expandedCraftSuppliesUl.append(expandedCraftSuppliesP);
-                    
-                };
-                
-                expandedInfoSection.append(expandedCraftSuppliesUl);
-
-
-                const expandedImageSection = document.getElementById("expanded-image-section");
-                expandedImageSection.innerHTML = "";
-
-                const expandedImage = document.createElement("img");
-                expandedImage.classList.add("expanded-craft-image");
-                expandedImage.src = "crafts/" + craft.image;
-                expandedImageSection.append(expandedImage);
-    
-            };
-
-        }
-        if((craft.id == "11"))
-        {
-            const craftImage = document.createElement("img");
-            craftImage.src = "crafts/" + craft.image;
-            craftSection3.append(craftImage);
-
-            craftImage.onclick = (event) =>
-            {
-                // FOR TESTING: console.log("Clicked");
-    
-                // document.getElementById("crafts-modal").style.display = "block";
-                openCraftsModal("expanded-image-section");
-                openCraftsModal("expanded-info-section");
-            
-
-                const expandedInfoSection = document.getElementById("expanded-info-section");
-                expandedInfoSection.innerHTML = "";
-    
-                const expandedCraftNameh3 = document.createElement("h2");
-                expandedCraftNameh3.classList.add("inline");
-                expandedCraftNameh3.innerHTML = craft.name;
-                expandedInfoSection.append(expandedCraftNameh3);
-
-                const pencilImage = document.createElement("img")
-                pencilImage.classList.add("edit-pencil-image");
-                pencilImage.src = "images/edit_pencil_image.png";
-                expandedInfoSection.append(pencilImage);
-
-                const expandedCraftDescriptionP = document.createElement("p");
-                expandedCraftDescriptionP.innerHTML = craft.description;
-                expandedInfoSection.append(expandedCraftDescriptionP);
-
-                const expandedCraftSuppliesTitle = document.createElement("h3")
-                expandedCraftSuppliesTitle.innerHTML = "Supplies:"
-                expandedInfoSection.append(expandedCraftSuppliesTitle);
-
-                const expandedCraftSuppliesUl = document.createElement("ul");
-                
-                for(let i=0; i<craft.supplies.length; i++)
-                {
-                    const expandedCraftSuppliesP = document.createElement("li");
-
-                    expandedCraftSuppliesP.append(craft.supplies[i]);
-                    
-                    expandedCraftSuppliesUl.append(expandedCraftSuppliesP);
-                    
-                };
-                
-                expandedInfoSection.append(expandedCraftSuppliesUl);
-
-
-                const expandedImageSection = document.getElementById("expanded-image-section");
-                expandedImageSection.innerHTML = "";
-
-                const expandedImage = document.createElement("img");
-                expandedImage.classList.add("expanded-craft-image");
-                expandedImage.src = "crafts/" + craft.image;
-                expandedImageSection.append(expandedImage);
-    
-            };
-
-        }
-        if((craft.id == "15"))
-        {
-            const craftImage = document.createElement("img");
-            craftImage.src = "crafts/" + craft.image;
-            craftSection3.append(craftImage);
-
-            craftImage.onclick = (event) =>
-            {
-                // FOR TESTING: console.log("Clicked");
-    
-                // document.getElementById("crafts-modal").style.display = "block";
-                openCraftsModal("expanded-image-section");
-                openCraftsModal("expanded-info-section");
-            
-
-                const expandedInfoSection = document.getElementById("expanded-info-section");
-                expandedInfoSection.innerHTML = "";
-    
-                const expandedCraftNameh3 = document.createElement("h2");
-                expandedCraftNameh3.classList.add("inline");
-                expandedCraftNameh3.innerHTML = craft.name;
-                expandedInfoSection.append(expandedCraftNameh3);
-
-                const pencilImage = document.createElement("img")
-                pencilImage.classList.add("edit-pencil-image");
-                pencilImage.src = "images/edit_pencil_image.png";
-                expandedInfoSection.append(pencilImage);
-
-                const expandedCraftDescriptionP = document.createElement("p");
-                expandedCraftDescriptionP.innerHTML = craft.description;
-                expandedInfoSection.append(expandedCraftDescriptionP);
-
-                const expandedCraftSuppliesTitle = document.createElement("h3")
-                expandedCraftSuppliesTitle.innerHTML = "Supplies:"
-                expandedInfoSection.append(expandedCraftSuppliesTitle);
-
-                const expandedCraftSuppliesUl = document.createElement("ul");
-                
-                for(let i=0; i<craft.supplies.length; i++)
-                {
-                    const expandedCraftSuppliesP = document.createElement("li");
-
-                    expandedCraftSuppliesP.append(craft.supplies[i]);
-                    
-                    expandedCraftSuppliesUl.append(expandedCraftSuppliesP);
-                    
-                };
-                
-                expandedInfoSection.append(expandedCraftSuppliesUl);
-
-
-                const expandedImageSection = document.getElementById("expanded-image-section");
-                expandedImageSection.innerHTML = "";
-
-                const expandedImage = document.createElement("img");
-                expandedImage.classList.add("expanded-craft-image");
-                expandedImage.src = "crafts/" + craft.image;
-                expandedImageSection.append(expandedImage);
-    
-            };
-
-        }
-        if((craft.id == "19"))
-        {
-            const craftImage = document.createElement("img");
-            craftImage.src = "crafts/" + craft.image;
-            craftImage.classList.add("ferris-wheel-image")
-            craftSection3.append(craftImage);
-
-            craftImage.onclick = (event) =>
-            {
-                // FOR TESTING: console.log("Clicked");
-    
-                // document.getElementById("crafts-modal").style.display = "block";
-                openCraftsModal("expanded-image-section");
-                openCraftsModal("expanded-info-section");
-            
-
-                const expandedInfoSection = document.getElementById("expanded-info-section");
-                expandedInfoSection.innerHTML = "";
-    
-                const expandedCraftNameh3 = document.createElement("h2");
-                expandedCraftNameh3.classList.add("inline");
-                expandedCraftNameh3.innerHTML = craft.name;
-                expandedInfoSection.append(expandedCraftNameh3);
-
-                const pencilImage = document.createElement("img")
-                pencilImage.classList.add("edit-pencil-image");
-                pencilImage.src = "images/edit_pencil_image.png";
-                expandedInfoSection.append(pencilImage);
-
-                const expandedCraftDescriptionP = document.createElement("p");
-                expandedCraftDescriptionP.innerHTML = craft.description;
-                expandedInfoSection.append(expandedCraftDescriptionP);
-
-                const expandedCraftSuppliesTitle = document.createElement("h3")
-                expandedCraftSuppliesTitle.innerHTML = "Supplies:"
-                expandedInfoSection.append(expandedCraftSuppliesTitle);
-
-                const expandedCraftSuppliesUl = document.createElement("ul");
-                
-                for(let i=0; i<craft.supplies.length; i++)
-                {
-                    const expandedCraftSuppliesP = document.createElement("li");
-
-                    expandedCraftSuppliesP.append(craft.supplies[i]);
-                    
-                    expandedCraftSuppliesUl.append(expandedCraftSuppliesP);
-                    
-                };
-                
-                expandedInfoSection.append(expandedCraftSuppliesUl);
-
-
-                const expandedImageSection = document.getElementById("expanded-image-section");
-                expandedImageSection.innerHTML = "";
-
-                const expandedImage = document.createElement("img");
-                expandedImage.classList.add("expanded-craft-image", "expanded-ferris-wheel-image");
-                expandedImage.src = "crafts/" + craft.image;
-                expandedImageSection.append(expandedImage);
-    
-            };
-
-        }
-        if((craft.id == "23"))
-        {
-            const craftImage = document.createElement("img");
-            craftImage.src = "crafts/" + craft.image;
-            craftSection3.append(craftImage);
-
-            craftImage.onclick = (event) =>
-            {
-                // FOR TESTING: console.log("Clicked");
-    
-                // document.getElementById("crafts-modal").style.display = "block";
-                openCraftsModal("expanded-image-section");
-                openCraftsModal("expanded-info-section");
-            
-
-                const expandedInfoSection = document.getElementById("expanded-info-section");
-                expandedInfoSection.innerHTML = "";
-    
-                const expandedCraftNameh3 = document.createElement("h2");
-                expandedCraftNameh3.classList.add("inline");
-                expandedCraftNameh3.innerHTML = craft.name;
-                expandedInfoSection.append(expandedCraftNameh3);
-
-                const pencilImage = document.createElement("img")
-                pencilImage.classList.add("edit-pencil-image");
-                pencilImage.src = "images/edit_pencil_image.png";
-                expandedInfoSection.append(pencilImage);
-
-                const expandedCraftDescriptionP = document.createElement("p");
-                expandedCraftDescriptionP.innerHTML = craft.description;
-                expandedInfoSection.append(expandedCraftDescriptionP);
-
-                const expandedCraftSuppliesTitle = document.createElement("h3")
-                expandedCraftSuppliesTitle.innerHTML = "Supplies:"
-                expandedInfoSection.append(expandedCraftSuppliesTitle);
-
-                const expandedCraftSuppliesUl = document.createElement("ul");
-                
-                for(let i=0; i<craft.supplies.length; i++)
-                {
-                    const expandedCraftSuppliesP = document.createElement("li");
-
-                    expandedCraftSuppliesP.append(craft.supplies[i]);
-                    
-                    expandedCraftSuppliesUl.append(expandedCraftSuppliesP);
-                    
-                };
-                
-                expandedInfoSection.append(expandedCraftSuppliesUl);
-
-
-                const expandedImageSection = document.getElementById("expanded-image-section");
-                expandedImageSection.innerHTML = "";
-
-                const expandedImage = document.createElement("img");
-                expandedImage.classList.add("expanded-craft-image");
-                expandedImage.src = "crafts/" + craft.image;
-                expandedImageSection.append(expandedImage);
-    
-            };
-
-        };
 
     });
 

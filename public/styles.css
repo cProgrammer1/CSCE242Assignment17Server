@@ -147,6 +147,14 @@ p a
 
 }
 
+.initial-image-preview
+{
+    padding: 10px;
+    display: block;
+    max-width: 80%;
+
+}
+
 #image-preview
 {
     padding: 10px;
