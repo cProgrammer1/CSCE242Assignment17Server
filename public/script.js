@@ -424,6 +424,8 @@ const showAddCraftForm = (event) =>
     {
         resetCraftForm();
 
+        return;
+
     }
 
 };
@@ -483,6 +485,9 @@ const addCraft = async(event) =>
 
         });
 
+
+        return;
+
     }
     else
     {
@@ -497,6 +502,7 @@ const addCraft = async(event) =>
 
         console.log(response);
 
+
     }
 
     console.log(response.status);
@@ -504,6 +510,9 @@ const addCraft = async(event) =>
     if(response.status != 200)
     {
         console.log("Error adding or editing craft data");
+
+
+        return;
 
     }
 
