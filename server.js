@@ -37,7 +37,7 @@ const storage = multer.diskStorage
 
 });
 
-const upload = multer({storage:storage});
+const upload = multer({storage: storage});
 
 app.get("/", (request, response) => 
 {
@@ -404,9 +404,10 @@ app.get("/api/crafts", (request, response) =>
 });
 
 
+// Adds a new craft  
 app.post("/api/crafts", upload.single("image_input"), (request, response) =>
 {
-  // console.log("Made it in the post");
+  // console.log("Made it into post");
 
   const result = validateCraft(request.body);
 
@@ -415,11 +416,10 @@ app.post("/api/crafts", upload.single("image_input"), (request, response) =>
     // In event of 400 error, sends result's first error in array of errors 
     response.status(400).send(result.error.details[0].message);
 
+
     return;
 
   }
-
-  console.log(crafts.length);
 
     const craft = 
     {
@@ -432,19 +432,67 @@ app.post("/api/crafts", upload.single("image_input"), (request, response) =>
 
     if(request.file)
     {
-        craft.image = "images/" + request.file.filename;
+        craft.image = request.file.filename;
 
     }
 
 
-    crafts.push(craft);
     console.log(craft);
+    crafts.push(craft);
 
     response.send(crafts);
   
   // console.log("Made it past the validator");
 
 });
+
+
+// Edits an existing craft 
+app.put("/api/crafts/:_id", upload.single("image_input"), (request, response) =>
+{
+    // "c" represents a craft 
+    const craft = crafts.find((c) => 
+    {
+        c._id === parseInt(request.params._id);
+        
+        console.log(c._id);
+
+    });
+
+    if(!craft)
+    {
+        response.sendStatus(404).send("Recipe with the given ID was not found");
+
+    }
+
+
+    const result = validateRecipe(request.body);
+
+    // In event of 400 error, sends result's first error in array of errors 
+    if(result.error)
+    {
+        result.status(400).send(result.error.details[0].message);
+
+
+        return;
+
+    }
+
+    craft.name = request.body.name_input;
+    craft.description = request.body.description_input;
+    craft.supplies = request.body.supply_input.split(","); // Splits comma-separated items in array 
+
+    if(request.file)
+    {
+        craft.image = request.file.filename;
+
+    }
+
+
+    result.send(crafts);
+
+});
+
 
 
 // Defines how craft should look 
@@ -459,9 +507,10 @@ const validateCraft = (craft) =>
     description_input: joi.string().min(3).required(),
 
     // Allowed to not have ingredients / be empty here 
+    supplies: joi.allow(""),
     supply_input: joi.allow(""),
 
-  }).unknown(true);
+  });
 
   // console.log(supply_input);
 

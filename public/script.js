@@ -81,7 +81,7 @@ const showCrafts = async() =>
         if(craft._id % 4 == 0)
         {
             const craftImage = document.createElement("img");
-            craftImage.src = "crafts/" + craft.image;
+            craftImage.src = "images/" + craft.image;
             craftImage.classList.add("initial-image-preview");
 
             // Appends to craftSection0 
@@ -103,10 +103,15 @@ const showCrafts = async() =>
                 expandedCraftNameh3.innerHTML = craft.name;
                 expandedInfoSection.append(expandedCraftNameh3);
 
-                const pencilImage = document.createElement("img")
-                pencilImage.classList.add("edit-pencil-image");
-                pencilImage.src = "images/edit_pencil_image.png";
-                expandedInfoSection.append(pencilImage);
+                // const pencilImage = document.createElement("img")
+                // pencilImage.id = "edit-pencil-image";
+                // pencilImage.src = "images/edit_pencil_image.png";
+                // expandedInfoSection.append(pencilImage);
+
+                const editPencilLink = document.createElement("a");
+                editPencilLink.innerHTML = "&#9998;";
+                expandedInfoSection.append(editPencilLink);
+                editPencilLink.id = "edit-pencil-image";
 
                 const expandedCraftDescriptionP = document.createElement("p");
                 expandedCraftDescriptionP.innerHTML = craft.description;
@@ -136,8 +141,12 @@ const showCrafts = async() =>
 
                 const expandedImage = document.createElement("img");
                 expandedImage.classList.add("expanded-craft-image");
-                expandedImage.src = "crafts/" + craft.image;
+                expandedImage.src = "images/" + craft.image;
                 expandedImageSection.append(expandedImage);
+
+                editPencilLink.onclick = showAddCraftForm;
+
+                populateCraftEditForm(craft);
 
             };
 
@@ -148,7 +157,7 @@ const showCrafts = async() =>
         if(craft._id % 4 == 1)
         {
             const craftImage = document.createElement("img");
-            craftImage.src = "crafts/" + craft.image;
+            craftImage.src = "images/" + craft.image;
             craftImage.classList.add("initial-image-preview");
 
             // Appends to craftSection1 
@@ -171,7 +180,7 @@ const showCrafts = async() =>
                 expandedInfoSection.append(expandedCraftNameh3);
 
                 const pencilImage = document.createElement("img")
-                pencilImage.classList.add("edit-pencil-image");
+                pencilImage.id = "edit-pencil-image";
                 pencilImage.src = "images/edit_pencil_image.png";
                 expandedInfoSection.append(pencilImage);
 
@@ -203,7 +212,7 @@ const showCrafts = async() =>
 
                 const expandedImage = document.createElement("img");
                 expandedImage.classList.add("expanded-craft-image");
-                expandedImage.src = "crafts/" + craft.image;
+                expandedImage.src = "images/" + craft.image;
                 expandedImageSection.append(expandedImage);
 
             };
@@ -214,7 +223,7 @@ const showCrafts = async() =>
         if(craft._id % 4 == 2)
         {
             const craftImage = document.createElement("img");
-            craftImage.src = "crafts/" + craft.image;
+            craftImage.src = "images/" + craft.image;
             craftImage.classList.add("initial-image-preview");
 
             // Appends to craftSection1 
@@ -237,7 +246,7 @@ const showCrafts = async() =>
                 expandedInfoSection.append(expandedCraftNameh3);
 
                 const pencilImage = document.createElement("img")
-                pencilImage.classList.add("edit-pencil-image");
+                pencilImage.id = "edit-pencil-image";
                 pencilImage.src = "images/edit_pencil_image.png";
                 expandedInfoSection.append(pencilImage);
 
@@ -269,7 +278,7 @@ const showCrafts = async() =>
 
                 const expandedImage = document.createElement("img");
                 expandedImage.classList.add("expanded-craft-image");
-                expandedImage.src = "crafts/" + craft.image;
+                expandedImage.src = "images/" + craft.image;
                 expandedImageSection.append(expandedImage);
 
             };
@@ -280,7 +289,7 @@ const showCrafts = async() =>
         if(craft._id % 4 == 3)
         {
             const craftImage = document.createElement("img");
-            craftImage.src = "crafts/" + craft.image;
+            craftImage.src = "images/" + craft.image;
             craftImage.classList.add("initial-image-preview");
 
             // Appends to craftSection2
@@ -303,7 +312,7 @@ const showCrafts = async() =>
                 expandedInfoSection.append(expandedCraftNameh3);
 
                 const pencilImage = document.createElement("img")
-                pencilImage.classList.add("edit-pencil-image");
+                pencilImage.id = "edit-pencil-image";
                 pencilImage.src = "images/edit_pencil_image.png";
                 expandedInfoSection.append(pencilImage);
 
@@ -335,12 +344,48 @@ const showCrafts = async() =>
 
                 const expandedImage = document.createElement("img");
                 expandedImage.classList.add("expanded-craft-image");
-                expandedImage.src = "crafts/" + craft.image;
+                expandedImage.src = "images/" + craft.image;
                 expandedImageSection.append(expandedImage);
 
             };
 
         }
+
+    });
+
+};
+
+// Populates the edit form when the edit pencil is clicked 
+populateCraftEditForm = (craft) =>
+{
+    const addCraftForm = document.getElementById("add-craft-form");
+
+    addCraftForm._id.value = craft._id;
+    addCraftForm.name_input.value = craft.name;
+    addCraftForm.description_input.value = craft.description;
+
+    document.getElementById("placeholder-preview-image").classList.remove("block");
+    document.getElementById("placeholder-preview-image").classList.add("hidden");
+    document.getElementById("image-preview").src = "images/" + craft.image;
+    
+
+    populateSupplies(craft.supplies);
+
+};
+
+// 
+const populateSupplies = (supplies) => 
+{
+    supplySection = document.getElementById("supplies-section");
+    
+    supplies.forEach((supply) => 
+    {
+        const supplyInput = document.createElement("input");
+        supplyInput.classList.add("supply");
+        supplyInput.classList.add("block");
+        supplyInput.type = "text";
+        supplyInput.value = supply;
+        supplySection.append(supplyInput);
 
     });
 
@@ -370,8 +415,16 @@ const showAddCraftForm = (event) =>
 {
     event.preventDefault();
 
-    resetCraftForm();
+    // document.getElementById("crafts-modal").style.display = "none";
     openCraftsModal("add-craft-form");
+
+    // console.log(event.target);
+
+    if(event.target.getAttribute("id") != "edit-pencil-image")
+    {
+        resetCraftForm();
+
+    }
 
 };
 
@@ -396,6 +449,8 @@ const resetCraftForm = () =>
     const addCraftForm = document.getElementById("add-craft-form");
     addCraftForm.reset();
 
+    addCraftForm._id.value = "";
+
     document.getElementById("supplies-section").innerHTML = "";
 
     document.getElementById("image-preview").src = "";
@@ -418,7 +473,8 @@ const addCraft = async(event) =>
 
     if(addCraftForm._id.value.trim() == "")
     {
-        console.log("Inside POST");
+        console.log("Adding craft (POST)")
+        // console.log("Inside POST");
 
         response = await fetch("/api/crafts", 
         {
@@ -427,16 +483,19 @@ const addCraft = async(event) =>
 
         });
 
-
     }
     else
     {
-        response = await fetch(`/api/recipes/${addCraftForm._id.value}`,
+        console.log("Editing craft (PUT)");
+
+        response = await fetch(`/api/crafts/${addCraftForm._id.value}`,
         {
             method: "PUT",
             body: addCraftFormData,
 
         });
+
+        console.log(response);
 
     }
 
