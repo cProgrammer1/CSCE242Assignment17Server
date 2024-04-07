@@ -103,15 +103,15 @@ const showCrafts = async() =>
                 expandedCraftNameh3.innerHTML = craft.name;
                 expandedInfoSection.append(expandedCraftNameh3);
 
-                // const pencilImage = document.createElement("img")
-                // pencilImage.id = "edit-pencil-image";
-                // pencilImage.src = "images/edit_pencil_image.png";
-                // expandedInfoSection.append(pencilImage);
-
                 const editPencilLink = document.createElement("a");
                 editPencilLink.innerHTML = "&#9998;";
                 expandedInfoSection.append(editPencilLink);
                 editPencilLink.id = "edit-pencil-image";
+
+                const deleteXLink = document.createElement("a");
+                deleteXLink.innerHTML = "&#9249;";
+                expandedInfoSection.append(deleteXLink);
+                deleteXLink.id = "delete-x-link";
 
                 const expandedCraftDescriptionP = document.createElement("p");
                 expandedCraftDescriptionP.innerHTML = craft.description;
@@ -145,6 +145,7 @@ const showCrafts = async() =>
                 expandedImageSection.append(expandedImage);
 
                 editPencilLink.onclick = showAddCraftForm;
+                deleteXLink.onclick = deleteCraft.bind(this, craft);
 
                 populateCraftEditForm(craft);
 
@@ -179,10 +180,15 @@ const showCrafts = async() =>
                 expandedCraftNameh3.innerHTML = craft.name;
                 expandedInfoSection.append(expandedCraftNameh3);
 
-                const pencilImage = document.createElement("img")
-                pencilImage.id = "edit-pencil-image";
-                pencilImage.src = "images/edit_pencil_image.png";
-                expandedInfoSection.append(pencilImage);
+                const editPencilLink = document.createElement("a");
+                editPencilLink.innerHTML = "&#9998;";
+                expandedInfoSection.append(editPencilLink);
+                editPencilLink.id = "edit-pencil-image";
+
+                const deleteXLink = document.createElement("a");
+                deleteXLink.innerHTML = "&#9249;";
+                expandedInfoSection.append(deleteXLink);
+                deleteXLink.id = "delete-x-link";
 
                 const expandedCraftDescriptionP = document.createElement("p");
                 expandedCraftDescriptionP.innerHTML = craft.description;
@@ -245,10 +251,15 @@ const showCrafts = async() =>
                 expandedCraftNameh3.innerHTML = craft.name;
                 expandedInfoSection.append(expandedCraftNameh3);
 
-                const pencilImage = document.createElement("img")
-                pencilImage.id = "edit-pencil-image";
-                pencilImage.src = "images/edit_pencil_image.png";
-                expandedInfoSection.append(pencilImage);
+                const editPencilLink = document.createElement("a");
+                editPencilLink.innerHTML = "&#9998;";
+                expandedInfoSection.append(editPencilLink);
+                editPencilLink.id = "edit-pencil-image";
+
+                const deleteXLink = document.createElement("a");
+                deleteXLink.innerHTML = "&#9249;";
+                expandedInfoSection.append(deleteXLink);
+                deleteXLink.id = "delete-x-link";
 
                 const expandedCraftDescriptionP = document.createElement("p");
                 expandedCraftDescriptionP.innerHTML = craft.description;
@@ -311,10 +322,15 @@ const showCrafts = async() =>
                 expandedCraftNameh3.innerHTML = craft.name;
                 expandedInfoSection.append(expandedCraftNameh3);
 
-                const pencilImage = document.createElement("img")
-                pencilImage.id = "edit-pencil-image";
-                pencilImage.src = "images/edit_pencil_image.png";
-                expandedInfoSection.append(pencilImage);
+                const editPencilLink = document.createElement("a");
+                editPencilLink.innerHTML = "&#9998;";
+                expandedInfoSection.append(editPencilLink);
+                editPencilLink.id = "edit-pencil-image";
+
+                const deleteXLink = document.createElement("a");
+                deleteXLink.innerHTML = "&#9249;";
+                expandedInfoSection.append(deleteXLink);
+                deleteXLink.id = "delete-x-link";
 
                 const expandedCraftDescriptionP = document.createElement("p");
                 expandedCraftDescriptionP.innerHTML = craft.description;
@@ -474,7 +490,6 @@ const addCraft = async(event) =>
     if(addCraftForm._id.value.trim() == "")
     {
         console.log("Adding craft (POST)")
-        // console.log("Inside POST");
 
         response = await fetch("/api/crafts", 
         {
@@ -494,8 +509,6 @@ const addCraft = async(event) =>
             body: addCraftFormData,
 
         });
-
-        console.log(response);
 
     }
 
@@ -518,6 +531,36 @@ const addCraft = async(event) =>
     showCrafts();
 
 };
+
+const deleteCraft = async(craft) =>
+{
+    let response = await fetch(`/api/crafts/${craft._id}`,
+    {
+        method:"DELETE",
+        headers:
+        {
+            "Content-Type":"application/json;charset=utf-8"
+        }
+        
+    });
+
+    if(response.status != 200)
+    {
+        console.log("There was an error deleting the craft");
+
+
+        return;
+
+    }
+
+    await response.json();
+    resetCraftForm();
+    document.getElementById("crafts-modal").style.display = "none";
+
+    showCrafts();
+
+};
+
 
 const getSupplies = () =>
 {

@@ -54,7 +54,6 @@ app.get("/", (request, response) =>
 
 let crafts = 
 [
-
     {
         _id: "0",
         name: "Beaded JellyFish",
@@ -66,7 +65,6 @@ let crafts =
             "Beads"
         ]
     },
-
     {
         _id: "1",
         name: "Character Bookmarks",
@@ -78,7 +76,6 @@ let crafts =
             "Black construction paper"
         ]
     },
-
     {
         _id: "2",
         name: "Button Flowers",
@@ -91,7 +88,6 @@ let crafts =
             "Ribbon"
         ]
     },
-
     {
         _id: "3",
         name: "Cheerio Necklaces",
@@ -102,7 +98,6 @@ let crafts =
             "Elastic string"
         ]
     },
-
     {
         _id: "4",
         name: "Cotton Ball Cupcakes",
@@ -115,8 +110,6 @@ let crafts =
             "Glitter"
         ]
     },
-
-
     {
         _id: "5",
         name: "School Themed Mason Jars",
@@ -129,7 +122,6 @@ let crafts =
             "Glitter"
         ]
     },
-
     {
         _id: "6",
         name: "Egg Carton Flowers",
@@ -143,7 +135,6 @@ let crafts =
             "Canvas"
         ]
     },
-
     {
         _id: "7",
         name: "Finger Puppets",
@@ -155,7 +146,6 @@ let crafts =
             "Pipe Cleaner"
         ]
     },
-
     {
         _id: "8",
         name: "Ribbon Flower Headbands",
@@ -168,7 +158,6 @@ let crafts =
             "Gems"
         ]
     },
-
     {
         _id: "9",
         name: "Hand Print Fish Puppets",
@@ -181,7 +170,6 @@ let crafts =
             "Googly Eyes"
         ]
     },
-
     {
         _id: "10",
         name: "Hand Print Tree",
@@ -192,7 +180,6 @@ let crafts =
             "Finger paint"
         ]
     },
-
     {
         _id: "11",
         name: "Melted Bead Bowl",
@@ -204,7 +191,6 @@ let crafts =
             "Parchment paper"
         ]
     },
-
     {
         _id: "12",
         name: "Monster Kites",
@@ -217,7 +203,6 @@ let crafts =
             "String"
         ]
     },
-
     {
         _id: "13",
         name: "Pool Noodle Boats",
@@ -229,7 +214,6 @@ let crafts =
             "Plastic Paper"
         ]
     },
-
     {
         _id: "14",
         name: "Paper Plate Bees",
@@ -244,7 +228,6 @@ let crafts =
             "Black Paint"
         ]
     },
-
     {
         _id: "15",
         name: "Paper Plate Dinosaurs",
@@ -257,7 +240,6 @@ let crafts =
             "Construction Paper"
         ]
     },
-
     {
         _id: "16",
         name: "Porcupine Leafs",
@@ -270,7 +252,6 @@ let crafts =
             "Construction Paper"
         ]
     },
-
     {
         _id: "17",
         name: "Rainbow Cloud",
@@ -282,7 +263,6 @@ let crafts =
             "Construction Paper"
         ]
     },
-
     {
         _id: "18",
         name: "Fun Shaped Crayons",
@@ -293,7 +273,6 @@ let crafts =
             "Mold"
         ]
     },
-
     {
         _id: "19",
         name: "Straw Farris Wheel",
@@ -304,7 +283,6 @@ let crafts =
             "Platform"
         ]
     },
-
     {
         _id: "20",
         name: "Sunny String",
@@ -317,7 +295,6 @@ let crafts =
             "Yellow and Orange beads"
         ]
     },
-
     {
         _id: "21",
         name: "Tissue Ballerinas",
@@ -329,7 +306,6 @@ let crafts =
             "Elastics"
         ]
     },
-
     {
         _id: "22",
         name: "Toilet Paper Roll Animals",
@@ -341,46 +317,29 @@ let crafts =
             "Googly Eyes"
         ]
     },
-
     {
         _id: "23",
         name: "Toilet Paper Butterfly",
         image: "toilet-paper-butterfly.jpg",
         description: "Such a sweat little flyer",
-        supplies: 
-        [
+        supplies: [
             "Toilet Paper Rolls",
             "Construction Paper",
             "Googly Eyes",
             "Buttons"
         ]
     },
-
     {
         _id: "24",
         name: "Valentines Jar",
         image: "valentines-jar.webp",
         description: "So much hearts all in one",
-        supplies: 
-        [
+        supplies: [
             "Clay",
             "Glitter"
         ]
     },
-
 ];
-
-
-app.get("/api/crafts", (request, response) => 
-{
-    console.log("API requested");
-    // response.send("Test");
-        
-    // FOR TESTING: console.log(crafts);
-    
-    response.send(crafts);
-
-});
 
 
 // Adds a new craft  
@@ -431,10 +390,16 @@ app.put("/api/crafts/:id", upload.single("image_input"), (request, response) =>
 {
     // console.log(crafts[0]);
     const craftID = parseInt(request.params.id);
-    console.log("Craft ID: " + craftID);
+    console.log("Edit craft ID: " + craftID);
 
     // "c" represents a craft 
-    const editCraft = crafts.find((c) => c._id === craftID);
+    // const editCraft = crafts.find((c) => c._id === craftID);
+    const editCraft = crafts.find((c) => 
+    {
+        c._id === craftID;
+
+    });
+
     console.log(editCraft);
 
     const result = validateCraft(request.body);
@@ -471,6 +436,25 @@ app.put("/api/crafts/:id", upload.single("image_input"), (request, response) =>
 });
 
 
+app.delete("/api/crafts/:id", (request, response) => 
+{
+    const craftID = parseInt(request.params.id);
+    console.log("Delete craft ID: " + craftID);
+
+    const deleteCraft = crafts.find((c) => 
+    {
+        c._id === craftID;
+
+    });
+
+    const craftIndex = crafts.indexOf(deleteCraft);
+    crafts.splice(craftIndex, 1);
+
+    response.send(deleteCraft);
+
+});
+
+
 
 // Defines how craft should look 
 const validateCraft = (craft) =>
@@ -483,7 +467,7 @@ const validateCraft = (craft) =>
     name_input: joi.string().min(3).required(),
     description_input: joi.string().min(3).required(),
 
-    // Allowed to not have ingredients / be empty here 
+    // Allowed to not have supplies / be empty here 
     supplies: joi.allow(""),
     supply_input: joi.allow(""),
 
@@ -495,6 +479,17 @@ const validateCraft = (craft) =>
 
 };
 
+
+app.get("/api/crafts", (request, response) => 
+{
+    console.log("API requested");
+    // response.send("Test");
+        
+    // FOR TESTING: console.log(crafts);
+    
+    response.send(crafts);
+
+});
 
 app.listen(3000, () => 
 {
