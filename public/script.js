@@ -463,12 +463,10 @@ const addCraft = async(event) =>
 {
     event.preventDefault();
 
-    const addCraftForm = document.getElementById("add-craft-form");
-
-    const addCraftFormData = new FormData(addCraftForm);
-
     let response;
 
+    const addCraftForm = document.getElementById("add-craft-form");
+    const addCraftFormData = new FormData(addCraftForm);
     addCraftFormData.append("supplies", getSupplies());
 
     console.log(...addCraftFormData);
@@ -485,9 +483,6 @@ const addCraft = async(event) =>
 
         });
 
-
-        return;
-
     }
     else
     {
@@ -501,7 +496,6 @@ const addCraft = async(event) =>
         });
 
         console.log(response);
-
 
     }
 
@@ -517,7 +511,7 @@ const addCraft = async(event) =>
     }
 
 
-    await response.json();
+    response = await response.json();
     resetCraftForm();
     document.getElementById("crafts-modal").style.display = "none";
 
