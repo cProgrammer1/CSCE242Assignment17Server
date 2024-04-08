@@ -221,6 +221,11 @@ const showCrafts = async() =>
                 expandedImage.src = "images/" + craft.image;
                 expandedImageSection.append(expandedImage);
 
+                editPencilLink.onclick = showAddCraftForm;
+                deleteXLink.onclick = deleteCraft.bind(this, craft);
+
+                populateCraftEditForm(craft);
+
             };
 
         }
@@ -292,6 +297,11 @@ const showCrafts = async() =>
                 expandedImage.src = "images/" + craft.image;
                 expandedImageSection.append(expandedImage);
 
+                editPencilLink.onclick = showAddCraftForm;
+                deleteXLink.onclick = deleteCraft.bind(this, craft);
+
+                populateCraftEditForm(craft);
+
             };
 
         }
@@ -362,6 +372,11 @@ const showCrafts = async() =>
                 expandedImage.classList.add("expanded-craft-image");
                 expandedImage.src = "images/" + craft.image;
                 expandedImageSection.append(expandedImage);
+
+                editPencilLink.onclick = showAddCraftForm;
+                deleteXLink.onclick = deleteCraft.bind(this, craft);
+
+                populateCraftEditForm(craft);
 
             };
 
